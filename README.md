@@ -1,6 +1,8 @@
-# Nuxt Minimal Starter
+# Hotel Currency Switcher
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A simple currency switcher for hotels in Europe powered by Nuxt 3.
+
+Live preview: https://hotel-currency-switcher.onrender.com/
 
 ## Setup
 
@@ -71,5 +73,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
