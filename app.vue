@@ -64,29 +64,12 @@ const availableCurrencies = computed(() => {
   return exchangeRates.value.map(rate => rate.base).sort()
 })
 
-const currencySymbolToCode = {
-  '€': 'EUR',
-  '£': 'GBP',
-  'DKK': 'DKK',
-  'CHF': 'CHF',
-  '¥': 'JPY',
-  '$': 'USD'
-}
-
-const formatPrice = (currencyCode, amount) => {
-  return new Intl.NumberFormat(locale.value, {
-    style: 'currency',
-    currency: currencyCode,
-    currencyDisplay: 'narrowSymbol'
-  }).format(amount)
-}
-
 const convertPrice = (price) => {
   const { currency, amount } = price
 
   const originalAmount = parseFloat(amount)
   const originalCurrencyCode = currencySymbolToCode[currency]
-  const fallbackPrice = formatPrice(originalCurrencyCode, originalAmount)
+  const fallbackPrice = formatPrice(locale.value, originalCurrencyCode, originalAmount)
   
   const rateData = exchangeRates.value.find(rate => rate.base === originalCurrencyCode)
   
@@ -101,7 +84,7 @@ const convertPrice = (price) => {
     return fallbackPrice
   }
 
-  return formatPrice(selectedCurrency.value, convertedAmount)
+  return formatPrice(locale.value, selectedCurrency.value, convertedAmount)
 }
 </script>
 
