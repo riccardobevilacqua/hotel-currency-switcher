@@ -177,8 +177,11 @@ header {
 }
 
 .availabilityText {
-  color: #666;
-  font-size: 14px;
+  font-size: 0.8rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 }
 
 .priceRow {
@@ -187,17 +190,25 @@ header {
   background-color: #f5f5f5;
   padding: 1rem;
   border-radius: 4px;
+  align-items: center;
 }
 
 .priceLabel {
-  color: #666;
   font-size: 0.8rem;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 }
 
 .price {
   font-size: 1.2rem;
   font-weight: bold;
   justify-self: flex-end;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
 }
 
 .viewRates {
