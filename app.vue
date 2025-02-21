@@ -5,8 +5,14 @@
       <h1>{{ hotels.length }} available hotels in Europe</h1>
       <div class="currencySelector">
         <span>currency:</span>
-        <select>
-          <option value="local">local</option>
+        <select v-model="selectedCurrency">
+          <option 
+            v-for="currency in availableCurrencies" 
+            :key="currency" 
+            :value="currency"
+          >
+            {{ currency }}
+          </option>
         </select>
       </div>
     </div>
@@ -27,9 +33,9 @@
           <p class="availabilityText">{{ hotel.availableHotels }} out of {{ hotel.totalHotels }} hotels are available</p>
           <div class="priceRow">
             <div class="priceLabel">
-              rooms available<br>from
+              rooms available from
             </div>
-            <div class="price">{{ hotel.price.currency }}{{ hotel.price.amount }}</div>
+            <div class="price">{{ convertPrice(hotel.price) }}</div>
           </div>
           <button class="viewRates">view rates</button>
         </div>
@@ -39,7 +45,57 @@
 </template>
 
 <script setup>
+const DEFAULT_CURRENCY_CODE = 'EUR'
+const DEFAULT_LOCALE = 'en-NL'
+const selectedCurrency = ref(DEFAULT_CURRENCY_CODE)
 const { data: hotels } = await useFetch('/api/offers')
+const { data: exchangeRates } = await useFetch('/api/exchange-rates')
+
+const availableCurrencies = computed(() => {
+  if (!exchangeRates.value) return []
+  
+  return exchangeRates.value.map(rate => rate.base).sort()
+})
+
+const currencySymbolToCode = {
+  '€': 'EUR',
+  '£': 'GBP',
+  'DKK': 'DKK',
+  'CHF': 'CHF',
+  '¥': 'JPY',
+  '$': 'USD'
+}
+
+const formatPrice = (currencyCode, amount) => {
+  return new Intl.NumberFormat(DEFAULT_LOCALE, {
+    style: 'currency',
+    currency: currencyCode,
+    currencyDisplay: 'narrowSymbol'
+  }).format(amount)
+}
+
+const convertPrice = (price) => {
+  const { currency, amount } = price
+
+  const originalAmount = parseFloat(amount)
+  const originalCurrencyCode = currencySymbolToCode[currency]
+  const fallbackPrice = formatPrice(originalCurrencyCode, originalAmount)
+  
+  const rateData = exchangeRates.value.find(rate => rate.base === originalCurrencyCode)
+  
+  if (!price || !exchangeRates.value || !rateData) {
+    return fallbackPrice
+  }
+  
+  const rate = rateData.rates[selectedCurrency.value]
+  const convertedAmount = originalAmount * rate
+
+  if (!rate || !convertedAmount) {
+    return fallbackPrice
+  }
+
+  return formatPrice(selectedCurrency.value, convertedAmount)
+}
 </script>
 
 <style>
