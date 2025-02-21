@@ -44,6 +44,13 @@
 </template>
 
 <script setup>
+useHead({
+  title: 'Hotels in Europe',
+  meta: [
+    { name: 'description', content: 'Hotels in Europe' }
+  ],
+})
+
 const DEFAULT_CURRENCY_CODE = 'EUR'
 const DEFAULT_LOCALE = 'en-US'
 
@@ -173,7 +180,11 @@ header {
 
 .hotelInfo h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 1.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 }
 
 .availabilityText {
