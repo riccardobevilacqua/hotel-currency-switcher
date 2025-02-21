@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/image'],
   image: {
-    provider: 'netlifyImageCdn',
     domains: ['images.unsplash.com']
   }
 })
