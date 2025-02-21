@@ -2,7 +2,13 @@
 
 A simple currency switcher for hotels in Europe powered by Nuxt 3.
 
-Live preview: https://hotel-currency-switcher.onrender.com/
+Live preview: https://hotel-currency-switcher.fly.dev/
+
+Alternative preview: https://hotel-currency-switcher.netlify.app/
+
+Another alternative preview: https://hotel-currency-switcher.onrender.com/
+
+Please, note that some of these deployments might need to warm up.
 
 ## Setup
 
