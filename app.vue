@@ -153,7 +153,7 @@ header {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #00dc82;
+  background: #0ad387;
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -198,7 +198,7 @@ header {
 .priceRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: #f5f5f5;
+  background-color: #f1f1f1;
   padding: 1rem;
   border-radius: 4px;
   align-items: center;
@@ -224,7 +224,7 @@ header {
 
 .viewRates {
   width: 100%;
-  background: #ff0055;
+  background: #fe0138;
   color: white;
   border: none;
   border-radius: 4px;
@@ -235,6 +235,6 @@ header {
 }
 
 .viewRates:hover {
-  background: #e6004c;
+  background: rgba(254, 1, 56, 0.9);
 }
 </style>
